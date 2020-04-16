@@ -314,5 +314,41 @@ $gatk MergeVcfs \
 ```
 
 # 8.filter vcf
+##1.从calling结果中提取到SNP信息
 
+```
+/public1/home/sc30797/david/software/gatk-4.1.5.0/gatk SelectVariants -V /public1/home/sc30797/wangzijian/Supplement/GATKout/population2/GATK_113.HC.vcf.gz -select-type SNP -O GATK_113.Wraw-snp.vcf.gz
+```
+
+##2.对SNP进行硬过滤
+```
+/public1/home/sc30797/david/software/gatk-4.1.5.0/gatk VariantFiltration \
+    -V GATK_113.Wraw-snp.vcf.gz \
+    -filter "QD < 2.0" --filter-name "QD2" \
+    -filter "QUAL < 30.0" --filter-name "QUAL30" \
+    -filter "SOR > 3.0" --filter-name "SOR3" \
+    -filter "FS > 60.0" --filter-name "FS60" \
+    -filter "MQ < 40.0" --filter-name "MQ40" \
+    -filter "MQRankSum < -12.5" --filter-name "MQRankSum-12.5" \
+    -filter "ReadPosRankSum < -8.0" --filter-name "ReadPosRankSum-8" \
+    -O GATK_113.snps_filtered-2.vcf.gz
+```
+参数依据：
+[Filter variants either with VQSR or by hard-filtering](https://gatk.broadinstitute.org/hc/en-us/articles/360035531112--How-to-Filter-variants-either-with-VQSR-or-by-hard-filtering)
+
+##3.仅保留纯合位点
+```
+/public1/home/sc30797/david/software/gatk-4.1.5.0/gatk VariantFiltration \
+    -V GATK_113.snps_filtered-2.vcf.gz \
+    --genotype-filter-expression "isHet == 1" \
+    --genotype-filter-name "isHetFilter" \
+    -O GATK_113.snps_filtered-hom.vcf.gz
+
+/public1/home/sc30797/david/software/gatk-4.1.5.0/gatk SelectVariants -V GATK_113.snps_filtered-hom.vcf.gz  --set-filtered-gt-to-nocall --exclude-filtered --exclude-non-variants  -select-type SNP -restrict-alleles-to BIALLELIC -O t113-hard2-snp.vcf.gz
+```
+
+##4.提取某个样本的SNP信息
+```
+/public1/home/sc30797/david/software/gatk-4.1.5.0/gatk SelectVariants  --set-filtered-gt-to-nocall --exclude-filtered --exclude-non-variants  -restrict-alleles-to BIALLELIC  -R Zm-Mo17-REFERENCE-CAU-1.0.fa -V t113-hard2-snp.vcf.gz -sn C78  -O C78-hard2.vcf 
+```
 
