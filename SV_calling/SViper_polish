@@ -1,0 +1,9 @@
+（1）二代数据比对
+  二代NGS数据可以利用bwa mem或bwa aln+sampe的流程比对到参考基因组，之后按照染色体进行sort（比对流程参见SNP calling部分）
+  
+（2）SViper安装
+  SViper是一个利用二代和三代比对的bam文件，对目标SV的breakpoint进行refinement的软件，下载路径（https://github.com/smehringer/SViper）
+  注：git clone的时候需要添加--recursive参数，因为目标文件夹内还有第三方的extern包需要下载，否则安装会报错
+  
+（3）SViper进行polish
+  
