@@ -6,4 +6,6 @@
   注：git clone的时候需要添加--recursive参数，因为目标文件夹内还有第三方的extern包需要下载，否则安装会报错
   
 （3）SViper进行polish
-  
+  /public1/home/sc30797/shijunpeng/softwares/SViper/build/sviper -c /public1/home/sc30797/ont_data/vcf_20200228/C003.DEL.intersect.1000.vcf -s /public1/home/sc30797/ont_data/ngs_bams/C3.sorted.bam -l /public1/home/sc30797/ont_data/bams/C003.bam -r /public1/home/sc30797/shijunpeng/data/Mo17/Zm-Mo17-REFERENCE-CAU-1.0.fa -t 60 -o ./C003.SViper.DEL
+	/public1/home/sc30797/shijunpeng/softwares/SViper/build/sviper -c /public1/home/sc30797/ont_data/vcf_20200228/C003.INS.intersect.1000.vcf -s /public1/home/sc30797/ont_data/ngs_bams/C3.sorted.bam -l /public1/home/sc30797/ont_data/bams/C003.bam -r /public1/home/sc30797/shijunpeng/data/Mo17/Zm-Mo17-REFERENCE-CAU-1.0.fa -t 60 -o ./C003.SViper.INS
+	
