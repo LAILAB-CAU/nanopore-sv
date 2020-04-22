@@ -13,10 +13,10 @@
   ===
   这里需要将vcf转化成特定格式的基因型文件，并得到表征血缘关系的的IBS.matrix与表征群体分层的PCA结果
   
-  step1.转化vcf文件为map,和ped,bed文件，并过滤maf和missing rate
-  ---
+  基于硬过滤后，再过滤maf，miss rate,杂合率的vcf文件
   
-    基于硬过滤后的vcf文件
+  step1.转化vcf文件为map,和ped,bed文件
+  ---
 ```BASH
     perl convert_vcf_to_hapmap.pl ./your_sample.vcf.gz your_sample.hapmap 
     gzip  your_sample.hapmap 
