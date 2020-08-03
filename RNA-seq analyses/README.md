@@ -114,17 +114,7 @@ def parse_args():
 
 
 def contig_to_int(contig):
-    try:
         return(int(contig))
-    except ValueError:
-        if contig == 'X':
-            return max_autosome + 1
-        elif contig == 'Y':
-            return max_autosome + 2
-        elif contig == 'MT':
-            return max_autosome + 3
-        else:
-            return max_autosome + 4
 
 
 def cmp_contigs(contig):
