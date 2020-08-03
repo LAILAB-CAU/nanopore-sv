@@ -1,6 +1,6 @@
 # 1.Genome SNP substitution 
 
-snpmask-1.sh
+snpmask.sh
 ```
 #!/bin/bash
 #$ -cwd
