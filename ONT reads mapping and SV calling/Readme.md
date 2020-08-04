@@ -2,9 +2,10 @@ Take B073 as an example:
 The raw sequencing fastq file name (Hac mode): B073.hac.raw.fastq
 Mo17 genome reference file name:               Maize_Mo17.fasta
 (1) Generate PAF file to statistics the raw data mapping information: 
+```
       minimap2 -c -M 0 --secondary=no -Q -t 10 -x map-ont Maize_Mo17.fasta B073.hac.raw.fastq > B073toMo17.raw.paf
       sh statistics_paf.sh B073toMo17.raw.paf
-
+```
 (2) Raw data correction using Necat version 1:
   perl necat.pl correct run.B073.cfg
   The name of corrected reads file: B073.hac.cns.fasta
