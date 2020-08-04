@@ -49,7 +49,7 @@ perl sel_sniffles_raw_format_vcf.pl B073.sniff.vcf B073.sniff.vcf.filter
 SURVIVOR merge B073_DEL_PBSV_SNIFFLES_filtered.lst 1000 1 1 -1 -1 -1 B073_DEL_intersect.vcf
 SURVIVOR merge B073_INS_PBSV_SNIFFLES_filtered.lst 1000 1 1 -1 -1 -1 B073_INS_intersect.vcf
 ```
-(9) USing the intersect result of each sample, combine them in a merged VCF file using SURVIVOR:
+(9) Using the intersect result of each sample, combine them in a merged VCF file using SURVIVOR:
 ```
 SURVIVOR merge DEL_pbsv_sniffles_intersect.lst 1000 1 1 -1 -1 -1 DEL.merge.vcf
 SURVIVOR merge INS_pbsv_sniffles_intersect.lst 1000 1 1 -1 -1 -1 INS.union.merge.vcf
