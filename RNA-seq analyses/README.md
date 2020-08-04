@@ -235,7 +235,7 @@ samtools sort -@ 6  C002--basedMo17.u.bam -o C002--basedMo17.us.bam
 samtools index  -@ 6   C002--basedMo17.us.bam
 ```
 
-# 4.FPKM values calculaiton
+# 4.FPKM values calculation
 
 cufflinks.sh
 ```
