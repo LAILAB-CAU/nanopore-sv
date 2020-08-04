@@ -52,5 +52,5 @@ SURVIVOR merge B073_INS_PBSV_SNIFFLES_filtered.lst 1000 1 1 -1 -1 -1 B073_INS_in
 (9) Using the intersect result of each sample, combine them in a merged VCF file using SURVIVOR:
 ```
 SURVIVOR merge DEL_pbsv_sniffles_intersect.lst 1000 1 1 -1 -1 -1 DEL.merge.vcf
-SURVIVOR merge INS_pbsv_sniffles_intersect.lst 1000 1 1 -1 -1 -1 INS.union.merge.vcf
+SURVIVOR merge INS_pbsv_sniffles_intersect.lst 1000 1 1 -1 -1 -1 INS.merge.vcf
 ```
