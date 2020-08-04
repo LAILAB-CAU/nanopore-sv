@@ -37,10 +37,9 @@ Mo17 genome reference file name:               Maize_Mo17.fasta
     1) add MD field: 
 ```
        samtools calmd -@ 8 B073.bam Maize_Mo17.fasta | samtools sort - -@ 8 -m 1G -o B073.MD.bam
-```
     2) Run SNIFFLES (V1.0.11): 
-```
        sniffles -m B073.MD.bam -v B073.sniff.vcf -s 2 -t 4 -l 20 --report_BND --report_seq --report_read_strands --ignore_sd --tmp_file ./tmpfile/B073.tmp --cluster --cluster_support 1 --genotype
+
 ```
 (7) Filter SNIFFLES results (using the same criterion with the results of PBSV):
 ```
