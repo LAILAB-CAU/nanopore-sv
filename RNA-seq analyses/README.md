@@ -1,4 +1,23 @@
-# 1.Genome SNP substitution 
+
+# 1.Get sample SNP information
+sampleINFOget.sh
+```
+#!/bin/bash
+#$ -cwd
+#$ -j y
+#$ -S /bin/bash
+gatk VariantFiltration \
+    -V /public1/home/sc30797/ont_data/ngs_bams/gatk/population/GATK.106.snp.hard_filter.vcf.gz \
+    --genotype-filter-expression "isHet == 1" \
+    --genotype-filter-name "isHetFilter" \
+    -O GATK_106.snps_filtered-hom.vcf.gz
+gatk SelectVariants -V GATK_106.snps_filtered-hom.vcf.gz  \
+    --set-filtered-gt-to-nocall --exclude-filtered --exclude-non-variants  -select-type SNP -restrict-alleles-to BIALLELIC \
+    -O t106-hard3-snp.vcf.gz
+/public1/home/sc30797/david/software/gatk-4.1.5.0/gatk SelectVariants  --set-filtered-gt-to-nocall --exclude-filtered --exclude-non-variants  -restrict-alleles-to BIALLELIC  -R ../Zm-Mo17-REFERENCE-CAU-1.0.fa -V t106-hard3-snp.vcf.gz -sn  C002   -O C002-hard2-snp.vcf.gz &
+```
+
+# 2.Genome SNP substitution 
 
 snpmask.sh
 ```
@@ -207,7 +226,7 @@ with open(args.output, 'w') as handle:
 ```
 
 
-# 2.Reads trimming and filtering
+# 3.Reads trimming and filtering
 
 fastp.sh
 ```
@@ -219,7 +238,7 @@ fastp -w 24 --detect_adapter_for_pe    --cut_front --cut_tail     --in1 ../C2_L2
 ```
 
 
-# 3.Reads mapping
+# 4.Reads mapping
 
 hisat2.sh
 ```
@@ -235,7 +254,7 @@ samtools sort -@ 6  C002--basedMo17.u.bam -o C002--basedMo17.us.bam
 samtools index  -@ 6   C002--basedMo17.us.bam
 ```
 
-# 4.FPKM values calculation
+# 5.FPKM values calculation
 
 cufflinks.sh
 ```
