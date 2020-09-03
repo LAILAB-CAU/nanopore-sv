@@ -1,0 +1,5 @@
+1、利用vcftools生成ped、map格式
+vcftools --vcf **.vcf --plink --chr --out
+2、plink计算SNP标记之间的相关
+plink --file **.vcf --r2 --out  --maf 0.05 --ld-window 10000 --ld-window-kb 200 --ld-window-r2 0 --map3 --noweb
+3、作图，以100bp为标准，取平均值。
