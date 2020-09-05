@@ -1,5 +1,5 @@
-# 0. Preparing softwares
-To install softwares for short-read sequencing data processing, it is convenient to install anaconda python=3.7.4 first. Then install fastp、bwa、samtools、bcftools、GATK4、bgzip、tabix through conda:
+# 0. Prepare softwares
+To install softwares for short-read sequencing data processing, it is convenient to install anaconda python=3.7.4 first. Then install fastp, bwa, samtools, bcftools, GATK4, bgzip, tabix through conda:
 
 ```
 conda install -c  bioconda fastp
@@ -12,13 +12,13 @@ conda install -c  bioconda tabix
 Moreover, install [GATK4](https://github.com/broadinstitute/gatk/releases) beforehand.
 
 # 1. Read preprocessing and mapping
-## (1) Prepare raw_fq.txt, the first column is accession number, and second/third column is the absolute path of the pair-end sequencing fastq file as follows:
+Step 1. Prepare raw_fq.txt, the first column is accession number, and second/third column is the absolute path of the pair-end sequencing fastq file as follows:
 ```
 B073 $folder/B73_1.fq.gz $folder/B73_2.fq.gz
 B010 $folder/C010_1.fq.gz $folder/C010_2.fq.gz
 ...
 ```
-## (2) Use custom perl script to do quality control and generate batch scripts for BWA alignment
+Step 2. Use custom perl script to do quality control and generate batch scripts for BWA alignment
 
 ```
 perl create_bash_file_for_bwa_index.pl raw_fq.txt
@@ -205,7 +205,7 @@ gatk VariantFiltration \
 gatk SelectVariants -V GATK.106.snps_filtered-hom.vcf.gz  --set-filtered-gt-to-nocall --exclude-filtered --exclude-non-variants  -select-type SNP -restrict-alleles-to BIALLELIC -O t106-hard2-snp.vcf.gz
 ```
 
-Step 4. Extract the SNPs for a certain accession (set B073 as an example):
+Step 4. Extract the SNPs for a certain accession (take B073 as an example):
 ```
 refgenome=$folder/Zm-Mo17-REFERENCE-CAU-1.0.fa
 gatk SelectVariants  --set-filtered-gt-to-nocall --exclude-filtered --exclude-non-variants  -restrict-alleles-to BIALLELIC  -R $refgenome -V t106-hard2-snp.vcf.gz -sn B073 -O B073-hard2.vcf 
