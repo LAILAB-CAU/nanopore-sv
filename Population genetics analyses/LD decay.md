@@ -7,7 +7,6 @@
     100	0.0348902858627838
     200	0.0549190959311831
  ```
- - vcf file filtering, CRITERIA USED?
  - Covert .vcf file to ped and map format 
      ```
      vcftools --vcf *.vcf --plink --out *
