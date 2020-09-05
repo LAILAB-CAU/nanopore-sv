@@ -111,7 +111,7 @@ wait
 ```
 
 ## (6) Calling gvcf with GATK4
-GATK4 allows to call SNPs in a per-accession manner, and output results in *.g.vcf.gz files. Different from *.vcf.gz files, the genomic positions having the same genotypes with the reference genome will also be saved in the *.g.vcf.gz files. Similar to bcftools in step (3), we also parallelized gvcf calling process by truncating the reference genome into 106*10 = 1060 segments (the number of chromosome is 10 for maize). 
+GATK4 allows to call SNPs in a per-accession manner, and output results in *.g.vcf.gz files. Different from *.vcf.gz files, the genomic positions having the same genotypes with the reference genome will also be saved in the *.g.vcf.gz files. Similar to bcftools in step (3), we also parallelized gvcf calling process by truncating the reference genome into 106x10 = 1060 segments (the number of chromosome is 10 for maize). 
 
 
 A custom perl script was used to generate commands to call gvcf:
