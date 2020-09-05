@@ -56,8 +56,8 @@ bamlist
 ```
 ## (2) Truncate the reference genome into 50 Mbp segments to parallize the SNP calling process. Write the start and end positions of the segments into Mo17_10chr_region.txt.sorted as follows:
 ```
-chr10:1-50000000<br/>
-chr10:50000001-100000000<br/>
+chr10:1-50000000
+chr10:50000001-100000000
 chr10:100000001-149041351
 ```
 
