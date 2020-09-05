@@ -21,9 +21,9 @@ sh statistics_paf.sh B073toMo17.raw.paf
 ```
 Step 2. Raw data correction using NECAT version 1 (https://github.com/xiaochuanle/NECAT) by using the Correct module with default parameters:
 ```  
-  perl necat.pl correct run.B073.cfg
+perl necat.pl correct run.B073.cfg
 ```
-The name of corrected reads file: B073.hac.cns.fasta
+The name of corrected reads file: B073.hac.cns.fasta.
 
 Step 3. Generate PAF file to obtain the statistics of the corrected data mapping: 
 ```
@@ -53,7 +53,7 @@ Step 6. Using the Bam file from pbmm2 to recall SV using Sniffles software (http
 # add MD field: 
   samtools calmd -@ 8 B073.bam Maize_Mo17.fasta | samtools sort - -@ 8 -m 1G -o B073.MD.bam
 # Run SNIFFLES (V1.0.11): 
-  sniffles -m B073.MD.bam -v B073.sniff.vcf -s 2 -t 4 -l 20 --report_BND --report_seq --report_read_strands --ignore_sd --tmp_file ./tmpfile/B073.tmp --cluster --cluster_support 1 --genotype
+ sniffles -m B073.MD.bam -v B073.sniff.vcf -s 2 -t 4 -l 20 --report_BND --report_seq --report_read_strands --ignore_sd --tmp_file ./tmpfile/B073.tmp --cluster --cluster_support 1 --genotype
 ```
 Step 7. Filter Sniffles results (using the same criterion with the results of PBSV):
 ```
