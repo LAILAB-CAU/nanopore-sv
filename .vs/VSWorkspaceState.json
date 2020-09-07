@@ -1,7 +1,13 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\ONT long-read data processing",
+    "\\Population genetics analyses",
+    "\\RNA-seq data processing",
+    "\\Short-read sequencing data processing",
+    "\\SV genomic feature annotation",
+    "\\Synonymous and non-synonymous SNPs"
   ],
-  "SelectedNode": "\\images",
+  "SelectedNode": "\\Short-read sequencing data processing",
   "PreviewInSolutionExplorer": false
 }
