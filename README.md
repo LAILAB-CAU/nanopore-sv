@@ -1,4 +1,4 @@
-These scripts can generate results in our manuscript entitled "Mapping Genome-wide Structural Variations of 106 Maize Lines with Nanopore Sequencing". Here are six main sections of analyses included in this study:
+These scripts can generate results in our manuscript entitled "Mapping Genome-wide Structural Variations of 106 Maize Lines with Nanopore Sequencing". Here are eight main sections of analyses included in this study:
 
 1. Short-read sequencing data processing
 2. ONT long-read data processing
