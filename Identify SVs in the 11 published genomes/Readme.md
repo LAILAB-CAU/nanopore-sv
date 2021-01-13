@@ -1,5 +1,5 @@
 Step 1. download 12 assembled genomes in fasta file at https://download.maizegdb.org/:
-
+```
 Zm-B73-REFERENCE-GRAMENE-4.0.fa
 
 Zm-A188-REFERENCE-KSU-1.0.fa
@@ -23,7 +23,7 @@ Zm-B104-DRAFT-ISU_USDA-0.1.fa
 Zm-DK105-REFERENCE-TUM-1.0.fa
 
 Zm-NC358-REFERENCE-NAM-1.0.fa
-
+```
 Step 2. convert scaffolds into contigs and remove multi Ns gap in sequence with the following command:
 ```
 perl convert_scaffolds_into_contigs.pl genome.fa genome.contig.fa (genome.fa could be one of genome file listed above)
