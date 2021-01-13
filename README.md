@@ -6,6 +6,8 @@ These scripts can generate results in our manuscript entitled "Mapping Genome-wi
 4. Population genetics analyses
 5. SV genomic feature annotation 
 6. Synonymous and non-synonymous SNPs
+7. Identify SVs in 12 publicly available genomes
+8. GCTA: estimate the phenotypic variance explained by SNPs or SVs
 
 ## Tutorial
 
