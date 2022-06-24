@@ -92,6 +92,18 @@ SURVIVOR merge DEL.combine.1000.lst 1000 1 1 -1 -1 -1 DEL.SViper.out.1000.vcf
 SURVIVOR merge INS.combine.1000.lst 1000 1 1 -1 -1 -1 INS.SViper.out.1000.vcf
 ```
 
+# 5. Genotyping. Seperate 0/0 from ./. in the vcf, and filter SVs with high missing rate
+
+
+Genotyping with ONT bam file. Create a depth file for each ONT data: 
+
+```
+cat DEL.SViper.out.1000.vcf INS.SViper.out.1000.vcf | sortBed - > INDEL.SViper.out.1000.vcf.sorted.bed
+srun -n 1 samtools depth -b ./INDEL.SViper.out.1000.vcf.sorted.bed /public1/home/sc30797/ont_data/bams/Mo17.bam | gzip -c - >./Mo17.depth.gz
+```
+
+
+ewee need 
 
 
 
