@@ -125,7 +125,9 @@ SURVIVOR merge merge_delly_lumpy_del.lst 1000 1 1 -1 -1 -1 NGS_DEL.vcf
 SURVIVOR merge merge_delly_lumpy_ins.lst 1000 1 1 -1 -1 -1 NGS_INS.vcf
 ```
 
-# 5. Check the overlap between different methods by SURVIVOR merge. SVs with breakpoints within 1kbp were merged as one SV. 
+# 5. Check the overlap between different methods by SURVIVOR merge. 
+
+SVs with breakpoints within 1kbp were merged as one SV. 
 
 ```
 for marker in DEL INS
