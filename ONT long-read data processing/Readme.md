@@ -103,9 +103,6 @@ srun -n 1 samtools depth -b ./INDEL.SViper.out.1000.vcf.sorted.bed /public1/home
 ```
 
 
-ewee need 
-
-
 
 
 
