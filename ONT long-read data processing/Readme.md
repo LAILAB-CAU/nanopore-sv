@@ -95,12 +95,18 @@ SURVIVOR merge INS.combine.1000.lst 1000 1 1 -1 -1 -1 INS.SViper.out.1000.vcf
 # 5. Genotyping. Seperate 0/0 from ./. in the vcf, and filter SVs with high missing rate
 
 
-Genotyping with ONT bam file. Create a depth file for each ONT data: 
+Genotyping with ONT bam file. Create a depth file for each ONT data, put all *.depth.gz file in a folder, which will be the input for genotyping.
 
 ```
 cat DEL.SViper.out.1000.vcf INS.SViper.out.1000.vcf | sortBed - > INDEL.SViper.out.1000.vcf.sorted.bed
-srun -n 1 samtools depth -b ./INDEL.SViper.out.1000.vcf.sorted.bed /public1/home/sc30797/ont_data/bams/Mo17.bam | gzip -c - >./Mo17.depth.gz
+srun -n 1 samtools depth -b INDEL.SViper.out.1000.vcf.sorted.bed Mo17.bam | gzip -c - > Mo17.depth.gz
+
+perl genotyping_and_unique.pl DEL.SViper.out.1000.vcf INS.SViper.out.1000.vcf DEL.SViper.out.1000.vcf.uniqe.nomissing.vcf INS.SViper.out.1000.vcf.uniqe.nomissing.vcf
 ```
+
+The population SV set for deletions and insertions (length > 50bp and unique) are: DEL.SViper.out.1000.vcf.uniqe.nomissing.vcf INS.SViper.out.1000.vcf.uniqe.nomissing.vcf. 
+
+
 
 
 
