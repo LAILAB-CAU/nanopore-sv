@@ -72,33 +72,3 @@ The FPKM table for 73 accessions is DTA73MX-mBsnpREF-200425-expressed.csv. Each 
 Rscript SV-associated_gene_differentially_expressed_test.R
 ```
 
-# 3. DEGs analyses
-
-To identify differentially expressed genes (DEGs) between the collected RNA-seq data on three tissues (leaf, ear, and stem) for 6 maize and teosinte accessions, we applied the five methods to first find DEGs in each tissue with the false discovery rate(FDR) at 5%: cuffdiff (Ghosh and Chan, 2016), edgeR (v 3.28.1) (Robinson et al., 2010), Limma (v 3.42.2) (Smyth, 2004), SAMseq (v 3.0) (Li and Tibshirani, 2013) and DESeq2 (v 1.26.0) (Love et al., 2014). 
-
-To run cufdiff analyses, the bam files were passed to cufflinks and the following commands were used to identify DEGs:
-  ```
-ADD lines here!
-  ```
-For edgeR, Limma, SAMseq, and DESeq2, we installed their R packages. In order to perform DEGs, we first quantify gene expression levels for each accession using HTSeq (https://htseq.readthedocs.io/en/release_0.11.1/count.html) through the following command:
-  
-  ```
-samtools view leaf_maize1.bam | htseq-count --stranded=no - Zm-Mo17-REFERENCE-CAU-1.0_genomic.gtf > leaf_maize1_htseq.txt 
-```
-Note that the gtf format of Mo17 genes Zm-Mo17-REFERENCE-CAU-1.0_genomic.gtf is like the following:
-  ```
-#gtf-version 2.2
-#!genome-build Zm-Mo17-REFERENCE-CAU-1.0
-#!genome-build-accession NCBI_Assembly:GCA_003185045.1
-chr1	Genbank	gene	2759	7959	.	-	.	gene_id "Zm00014a_008050"; gbkey "Gene"; gene "MTERF2_2"; gene_biotype "protein_coding"; locus_tag "Zm00014a_008050"; partial "true"; 
-chr1	Genbank	exon	7220	7959	.	-	.	gene_id "Zm00014a_008050"; transcript_id "gnl|WGS:NCVQ|Zm00014a_008050_T1"; gbkey "mRNA"; gene "MTERF2_2"; locus_tag "Zm00014a_008050"; orig_protein_id "gnl|WGS:NCVQ|Zm00014a_008050_P1"; orig_transcript_id "gnl|WGS:NCVQ|Zm00014a_008050_T1"; partial "true"; product "Transcription termination factor MTERF2, chloroplastic"; exon_number "1"; 
-```
-
-For each tissue, concatenate HTSeq results into a table, with each row represent a gene in the gtf file and each column represent the gene expression level of each accession, resulting in combine_htseq.txt. Run the following commands to obtain the DEGs in each tissue:
-  ```
-Rscript edger.R
-Rscript deseq2.R
-Rscript limma.R
-Rscript samseq.R
-```
-DEGs supported by at least two of the five methods were considered as DEGs in each tissue.

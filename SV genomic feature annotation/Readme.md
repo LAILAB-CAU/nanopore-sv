@@ -6,7 +6,7 @@ Step 1. The partition of Mo17 reference genome: a custom script was used to anno
 sh run_step1.sh
 ```
 
-Step 2. Assign genomic features to each SV according to the location of the SV:
+Step 2. Assign genomic features to each SV according to the location of the SV. The location of SVs was determined as the most overlapped genomic feature performed by bedtools.
 ```
 sh run_step2.sh
 ```
