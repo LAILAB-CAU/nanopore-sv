@@ -106,6 +106,10 @@ perl genotyping_and_unique.pl DEL.SViper.out.1000.vcf INS.SViper.out.1000.vcf DE
 
 The population SV set for deletions and insertions (length > 50bp and unique) are: DEL.SViper.out.1000.vcf.uniqe.nomissing.vcf INS.SViper.out.1000.vcf.uniqe.nomissing.vcf. 
 
+```
+cat DEL.SViper.out.1000.vcf.uniqe.nomissing.vcf.part* > DEL.SViper.out.1000.vcf.uniqe.nomissing.vcf
+cat INS.SViper.out.1000.vcf.uniqe.nomissing.vcf.part* > INS.SViper.out.1000.vcf.uniqe.nomissing.vcf
+```
 
 
 
