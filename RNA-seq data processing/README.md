@@ -65,6 +65,65 @@ cufflinks -p 6 -o ./cufflinks-C002-  -u -G Zm-Mo17-REFERENCE-CAU-1.0_Zm00014a.1.
 
 We mapped cis-eQTLs to scan for genetic markers that significantly affect gene expression in maize seedling. We selected common genetic markers (SVs, small InDels, and SNPs) with MAF >=0.05 for joint eQTL amapping. The joint eQTL analysis included 401,919 SVs, XX small InDels, and 7,153,302 SNPs. Gene expression levels of samples were quantile normalized, then subjected to inverse quantile normalization of each gene to control for outliers. We mapped cis-eQTLs with FastQTL v2.165 by using cis window of 1Mbp on either side of each gene. The covariates used in FastQTL included the first 3 genotyping principal components and 30 probabilistic estimation of expression residuals (PEER) factors. After running FastQTL, we performed gene-level multiple testing correction by using the Benjamini–Hochberg method at 5% FDR.
 
+
+Create a genotype file: SV_SNP_INDEL.genotype.vcf.gz. Since only 73 accessions have RNA-seq data in seedling, we need to extract SVs, SNPs, and small InDels for these 73 samples and calculate genotyping PCAs. 
+
+```
+# The 73 samples were in wanted_sample
+
+vcftools  --gzvcf GATK.108.snp.after_hard_filtered.vcf.gz  --keep wanted_sample   --recode --recode-INFO-all --stdout  > GATK.73.snp.after_hard_filtered.vcf.gz
+vcftools  --gzvcf GATK.108.indel.after_hard_filtered.vcf.gz  --keep wanted_sample   --recode --recode-INFO-all --stdout  > GATK.73.indel.after_hard_filtered.vcf.gz
+
+vcftools  --vcf DEL.SViper.out.1000.vcf.uniqe.nomissing.vcf  --keep wanted_sample   --recode --recode-INFO-all --stdout  > GATK.73.DEL.after_hard_filtered.vcf.gz
+vcftools  --vcf INS.SViper.out.1000.vcf.uniqe.nomissing.vcf  --keep wanted_sample   --recode --recode-INFO-all --stdout  > GATK.73.INS.after_hard_filtered.vcf.gz
+
+zcat GATK.73.DEL.after_hard_filtered.vcf.gz | perl hard_filter_GATK.pl - GATK.73.DEL.missrate05.het005.maf005.nobia.vcf.gz
+zcat GATK.73.INS.after_hard_filtered.vcf.gz | perl hard_filter_GATK.pl - GATK.73.INS.missrate05.het005.maf005.nobia.vcf.gz
+
+perl hard_filter_GATK.pl GATK.73.indel.after_hard_filtered.vcf.gz  GATK.73.indel.missrate05.het005.maf005.nobia.vcf.gz
+perl hard_filter_GATK.pl GATK.73.snp.after_hard_filtered.vcf.gz    GATK.73.snp.missrate05.het005.maf005.nobia.vcf.gz
+
+perl  convert_vcf_to_jvcf.pl  GATK.73.snp.missrate05.het005.maf005.nobia.vcf.gz   GATK.73.snp.missrate05.het005.maf005.nobia.jvcf.gz
+perl  convert_vcf_to_jvcf_for_INDEL.pl GATK.73.indel.missrate05.het005.maf005.nobia.vcf.gz GATK.73.indel.missrate05.het005.maf005.nobia.jvcf.gz
+perl  convert_vcf_to_jvcf_for_SV.pl GATK.73.INS.missrate05.het005.maf005.nobia.vcf.gz   GATK.73.INS.missrate05.het005.maf005.nobia.jvcf.gz
+perl  convert_vcf_to_jvcf_for_SV.pl GATK.73.DEL.missrate05.het005.maf005.nobia.vcf.gz   GATK.73.DEL.missrate05.het005.maf005.nobia.jvcf.gz
+
+perl convert_jvcf_into_ped_and_map_Huang2.pl GATK.73.snp.missrate05.het005.maf005.nobia.jvcf.gz GATK.73.snp.missrate05.het005.maf005.nobia.ped GATK.73.snp.missrate05.het005.maf005.nobia.map
+perl convert_jvcf_into_ped_and_map_Huang2.pl GATK.73.indel.missrate05.het005.maf005.nobia.jvcf.gz GATK.73.indel.missrate05.het005.maf005.nobia.ped GATK.73.indel.missrate05.het005.maf005.nobia.map
+perl convert_jvcf_into_ped_and_map_Huang2.pl GATK.73.INS.missrate05.het005.maf005.nobia.jvcf.gz   GATK.73.INS.missrate05.het005.maf005.nobia.ped GATK.73.INS.missrate05.het005.maf005.nobia.map
+perl convert_jvcf_into_ped_and_map_Huang2.pl GATK.73.DEL.missrate05.het005.maf005.nobia.jvcf.gz   GATK.73.DEL.missrate05.het005.maf005.nobia.ped GATK.73.DEL.missrate05.het005.maf005.nobia.map
+
+plink --vcf GATK.108.snp.hard_filter_missrate05.het005.maf005.nobia --allow-extra-chr --make-bed --out GATK.108.snp.hard_filter_missrate05.het005.maf005.nobia
+plink --file GATK.73.DEL.missrate05.het005.maf005.nobia --allow-extra-chr --make-bed --out GATK.73.DEL.missrate05.het005.maf005.nobia 
+plink --file GATK.73.INS.missrate05.het005.maf005.nobia --allow-extra-chr --make-bed --out GATK.73.INS.missrate05.het005.maf005.nobia
+plink --file GATK.73.indel.missrate05.het005.maf005.nobia --allow-extra-chr --make-bed --out GATK.73.indel.missrate05.het005.maf005.nobia
+plink --file GATK.73.snp.missrate05.het005.maf005.nobia   --allow-extra-chr --make-bed --out GATK.73.snp.missrate05.het005.maf005.nobia
+
+DEL=GATK.73.DEL.missrate05.het005.maf005.nobia
+INS=GATK.73.INS.missrate05.het005.maf005.nobia
+SNP=GATK.73.snp.missrate05.het005.maf005.nobia
+Indel=GATK.73.indel.missrate05.het005.maf005.nobia
+awk '{print $2"\t"$2"_DEL"}' $DEL\.bim > ID_DEL.lst
+awk '{print $2"\t"$2"_INS"}' $INS\.bim > ID_INS.lst
+awk '{print $2"\t"$2"_Indel"}' $Indel\.bim > ID_Indel.lst
+
+plink --bfile $DEL --update-map ID_DEL.lst --update-name --make-bed --out DEL --allow-extra-chr 
+plink --bfile $INS --update-map ID_INS.lst --update-name --make-bed --out INS --allow-extra-chr  
+plink --bfile $Indel --update-map ID_Indel.lst --update-name --make-bed --out Indel --allow-extra-chr 
+
+INS=INS
+DEL=DEL
+SNP=GATK.73.snp.missrate05.het005.maf005.nobia
+Indel=Indel
+
+echo -e "INS.bed\tINS.bim\tINS.fam" > batch_list
+echo -e "DEL.bed\tDEL.bim\tDEL.fam" >> batch_list
+echo -e "Indel.bed\tIndel.bim\tIndel.fam" >> batch_list
+echo -e "$SNP.bed\t$SNP.bim\t$SNP.fam" >> batch_list
+
+plink --noweb  --merge-list batch_list --make-bed --out SNP_INDEL_SV  --allow-extra-chr
+```
+
 Prepare covariate.txt.gz file
 ```
 # 3 genotyping PCAs
@@ -77,20 +136,22 @@ python quantile_normalization.py DTA73MX-mBsnpREF-200425-expressed.csv seedling.
 
 Rscript run_peer.R
 
+## Sort the columns in seedling_PEER_covariates.txt, make sure the sample order was the same in the genotype vcf.gz file.
+sed '1d' seedling_PEER_covariates.txt | perl sort_phenotype_table.pl - seedling.normalized.expression.txt DEL.fam |cat header -  > seedling_PEER_covariates.txt_sorted
+
 head -n4 PCA_covariants > covariates.txt
 tail -n+2 seedling_PEER_covariates.txt_sorted | cat covariates.txt - | bgzip > covariates.txt.gz
-```
-
-Create a genotype file: SV_SNP_INDEL.genotype.vcf.gz. 
-```
-tabix -p vcf SV_SNP_INDEL.genotype.vcf.gz
 ```
 
 Prepare a phenotype file: sorted.phenotype.bed.gz
 ```
 # Sort the columns in seedling.normalized.expression.txt, make sure the sample order was the same in the genotype vcf.gz file. 
 
-XXXX 具体怎么写问亮亮
+table=seedling.normalized.expression.txt
+header=seedling.normalized.expression.txt
+wanted_sort=DEL.fam
+
+perl sort_phenotype_table.pl $table $header $wanted_sort > seedling.normalized.expression_sorted
 
 # prepare correct phenotype files. This takes seedling.normalized.expression_sorted as input, and outputs phenotypes.bed. 
 
