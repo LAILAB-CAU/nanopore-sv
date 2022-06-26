@@ -1,6 +1,6 @@
 #!/bin/bash
 
-perl get_gene_bed.pl Zm-Mo17-REFERENCE-CAU-1.0_mgdb.gff3  Mo17_CAU_gene_bed
+perl get_gene_bed.pl Zm-Mo17-REFERENCE-CAU-1.0_Zm00014a.1.gff3  Mo17_CAU_gene_bed
 perl get_exon_bed_v2.pl Zm-Mo17-REFERENCE-CAU-1.0_mgdb.gff3  Mo17_CAU_exon_bed
 
 
