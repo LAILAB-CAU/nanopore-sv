@@ -122,6 +122,7 @@ echo -e "Indel.bed\tIndel.bim\tIndel.fam" >> batch_list
 echo -e "$SNP.bed\t$SNP.bim\t$SNP.fam" >> batch_list
 
 plink --noweb  --merge-list batch_list --make-bed --out SNP_INDEL_SV  --allow-extra-chr
+tabix -p vcf SV_SNP_INDEL.genotype.vcf.gz 
 ```
 
 Prepare covariate.txt.gz file
