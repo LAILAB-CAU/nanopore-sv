@@ -68,6 +68,23 @@ The details in discovering ONT-based SVs has been described in the 'ONT long-rea
 
 The B73 Pacbio data was downloaded from previously-published work at doi:10.1038/nature22971. 
 
+Pacbio raw data for B73 was B073.pb.bam. Mo17 reference genome is Zm-Mo17-REFERENCE-CAU-1.0.fa. 
+
+```
+# Convert bam file to fasta file:
+samtools fasta B073.pb.bam > B073.pb.fasta
+
+# Raw reads correction using Mecat (https://github.com/xiaochuanle/MECAT), the corrected reads were in B073.pb.corrected.fasta
+
+mecat2pw -j 0 -d B073.pb.fasta -o B073.pb.fasta.pm.can -w wrk_dir -t 16
+mecat2cns -i 0 -t 16 B073.pb.fasta.pm.can B073.pb.fasta B073.pb.corrected
+    
+# SV calling using PBSV
+pbmm2 align --sort -j 31 -J 8 -m 1000M --rg '@RG\tID:B073\tSM:B073' Maize_Mo17.fasta B073.pb.corrected.fasta B073.pb.bam
+pbsv discover -q 10 B073.pb.bam B073.pb.svsig.gz
+pbsv call -j 10 -m 20 --min-cnv-length 1K --max-ins-length 10K --max-dup-length 100K Maize_Mo17.fasta B073.pb.svsig.gz B073.pb.PBSV.vcf
+```
+
 # 4. SRS-based method
 
 We first aligned the SRS reads (B73_1.fq.fastp.gz and B73_2.fq.fastp.gz) by bwa mem and applied both Delly and lumpy in calling SRS-based SVs. 
