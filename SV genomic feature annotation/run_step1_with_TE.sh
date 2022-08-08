@@ -12,7 +12,7 @@ cat maize_Mo17_exon.bed.sorted | awk '{print $1":"$4"\t"$2"\t"$3}' | bedtools me
 cat maize_Mo17_exon.bed.tmp|perl -ne 'chomp;@ss=split;@mm=split /:/,$ss[0];print "$mm[0]\t$ss[1]\t$ss[2]\t$mm[1]\n";' >maize_Mo17_exon.bed.merge
 perl get_intron.pl maize_Mo17_exon.bed.merge >maize_Mo17_intron.bed
 
-cat  ~/shared_files/mo17_EDTA_5_TE_types.txt | awk '{print $1"\t"$4"\t"$5}'|grep \# -v|sort -k1,1 -k2,2n | bedtools merge -i - > maize_Mo17_TE_merge
+cat  ../TE annotation/mo17_EDTA_5_TE_types.txt | awk '{print $1"\t"$2"\t"$3}'|grep \# -v|sort -k1,1 -k2,2n | bedtools merge -i - > maize_Mo17_TE_merge
 perl get_no_TE_region.pl maize_Mo17_TE_merge Mo17_chrom_length  >  no_TE_region_temp
 cat no_TE_region_temp | perl merge_file.pl - > no_TE_region
 perl get_interval.pl Mo17_CAU_exon_bed  maize_Mo17_intron.bed maize_Mo17_up5K.bed maize_Mo17_down5K.bed no_TE_region >interval
