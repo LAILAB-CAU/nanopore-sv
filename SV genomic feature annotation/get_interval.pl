@@ -20,25 +20,25 @@ while(<INTRON>)
                 }
         }
 
-open UP2K, "$ARGV[2]" or die "$!" ;
-while(<UP2K>)
+open UP5K, "$ARGV[2]" or die "$!" ;
+while(<UP5K>)
         {
         chomp;
         @ss=split;
         for($i=$ss[1];$i<=$ss[2];$i++)
                 {
-                $hash_up2K{"$ss[0]\t$i"}++;
+                $hash_up5K{"$ss[0]\t$i"}++;
                 }
         }
 
-open DOWN2K, "$ARGV[3]" or die "$!";
-while(<DOWN2K>)
+open DOWN5K, "$ARGV[3]" or die "$!";
+while(<DOWN5K>)
         {
         chomp;
         @ss=split;
         for($i=$ss[1];$i<=$ss[2];$i++)
                 {
-                $hash_down2K{"$ss[0]\t$i"}++;
+                $hash_down5K{"$ss[0]\t$i"}++;
                 }
         }
 
@@ -57,13 +57,13 @@ while(<I>)
 			{
 			print "$ss[0]\t$i\t$i\tintron\n";
 			}
-		elsif(exists $hash_up2K{"$ss[0]\t$i"})
+		elsif(exists $hash_up5K{"$ss[0]\t$i"})
 			{
-			print "$ss[0]\t$i\t$i\tup2K\n";
+			print "$ss[0]\t$i\t$i\tup5K\n";
 			}
-		elsif(exists $hash_down2K{"$ss[0]\t$i"})
+		elsif(exists $hash_down5K{"$ss[0]\t$i"})
 			{
-			print "$ss[0]\t$i\t$i\tdown2K\n";
+			print "$ss[0]\t$i\t$i\tdown5K\n";
 			}
 		else
 			{
