@@ -1,14 +1,8 @@
-In this project, the genomic features of SVs were annotated in two senarios. In one senario, TE feature was considered and the Mo17 reference genome was first annotated in the priority of TE region, exon, intron, upstream 5kbp region (Up5k), downstream 5 kbp region (Down5k), and intergenic region. In the other senario, TE region was not considered. In both senarios, two adjacent regions with the same annotation were merged into one region. SVs were annotated through two steps. 
+The calculation of insertion time for LTR-containing TE types and non-LTR types were different. For each LTR-containg TE, such as Copia and Gypsy, sequences for its paired LTRs (coordinates deposited in from .EDTA.intact.gff3) were extracted and were subject to pairwise alignment by MUSCLE. The alignment results was used to calculate the distance between paired LTRs with distmat functions in emboss. As a result, the insertion time for this LTR-containing TE was estimated as the distance divided by the molecular clock of 1.3-e8 per site per year. 
 
-Step 1. The partition of Mo17 reference genome: a custom script was used to annotate genome features from the downloaded gff3 file at https://download.maizegdb.org/Zm-Mo17-REFERENCE-CAU-1.0/Zm-Mo17-REFERENCE-CAU-1.0_Zm00014a.1.gff3.gz. 
 
-In senario 1, different features had the following priority: TE region, exon, intron, upstream 5kbp region (Up5k), downstream 5 kbp region (Down5k), and intergenic region. TE annotation (file) was from the 'TE annotation' section, which conducted EDTA and annotated the Mo17 genome into 5 TE categories: Copia, Gypsy, Helitron, DNA/T, MITEs, and other TEs. 
 
-```
-sh run_step1.sh
-```
 
-Step 2. Assign genomic features to each SV according to the location of the SV. The location of SVs was determined as the most overlapped genomic feature performed by bedtools.
-```
-sh run_step2.sh
-```
+
+
+For non-LTR TE types, such as DNA/T, Helitron, and MITEs, sequences for 11 subtypes (EDTA annotated DNA_DTA, DNA_DTC, DNA_DTH, DNA_DTM, DNA_DTT, DNA_Helitron, MITE_DTA, MITE_DTC, MITE_DTH, MITE_DTM, MITE_DTT) were first extracted in 11 fasta files. Multiple sequence alignment (MSA) were conducted within each fasta file by blastn (v 2.9.0)84 with default settings. In the MSA result, the insertion time for aligned pairs were again calculated by MUSCLE (v 3.8.1551)81 alignment and followed distmat functions in emboss (v 6.5.0). If a TE aligned with multiple other TEs in MSA, only the best hit was used to calculate insertion time. At this point, the insertion time for each Mo17 TE was calculated. To calculate the insertion time of deletions, deletions were annotated as a TE category if at least 80% of the deletion overlapped with this TE category. If the deletion overlapped with multiple TEs in the assigned category, the average insertion time among those TEs were used. 
