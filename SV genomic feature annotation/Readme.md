@@ -21,7 +21,8 @@ cd without_TE
 sh combine.sh
 ```
 
-Step 2. Assign genomic features to each SV according to the location of the SV. The location of SVs was determined as the most overlapped genomic feature performed by bedtools.
+Step 2. Assign genomic features to each SV according to the location of the SV. The location of SVs was determined as the most overlapped genomic feature performed by bedtools. The last step summarize the number of SVs in each genomic feature.
 ```
-sh run_step2.sh
+cd ..
+sh run_annotation.sh
 ```
